@@ -14,6 +14,7 @@ services:
       - ./data/zoo1/data:/data
       - ./log/zoo1/datalog:/datalog
 
+
   kafka1:
     image: confluentinc/cp-kafka:5.1.2
     hostname: kafka1
@@ -31,3 +32,29 @@ services:
       - ./data/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
+
+  elastic1:
+    image: elasticsearch:6.6.2
+    hostname: elastic1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+        discovery.type: single-node
+    volumes:
+      - esdata1:/var/lib/kafka/data
+    depends_on:
+      - kafka1
+
+  kibana1:
+    image: kibana:6.6.2
+    hostname: kibana1
+    ports:
+      - "5601:5601"
+    environment:
+        ELASTICSEARCH_URL: http://elastic1:9200
+    depends_on:
+      - elastic1
+volumes:
+  esdata1:
+    driver: local

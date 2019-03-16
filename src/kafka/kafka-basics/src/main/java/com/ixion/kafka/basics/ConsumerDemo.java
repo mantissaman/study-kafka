@@ -1,4 +1,4 @@
-package com.ixion.kafka.tutorial1;
+package com.ixion.kafka.basics;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -11,11 +11,10 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
 
-public class ConsumerThreademo {
+public class ConsumerDemo {
     public static void main(String[] args) {
-        final Logger logger = LoggerFactory.getLogger(ConsumerThreademo.class.getName());
+        final Logger logger = LoggerFactory.getLogger(ConsumerDemo.class.getName());
 
         String bootstrapServers="127.0.0.1:9092";
         String groupId ="my_app_group";
@@ -30,8 +29,6 @@ public class ConsumerThreademo {
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest"); // earliest/latest/none
 
         //create consumer
-
-
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
 
         //subscribe consumer to topics
@@ -47,23 +44,5 @@ public class ConsumerThreademo {
         }
 
 
-    }
-
-    public class ConsumerThread implements Runnable{
-
-        CountDownLatch latch;
-
-        public ConsumerThread(CountDownLatch latch){
-            this.latch = latch;
-        }
-
-        @Override
-        public void run() {
-
-        }
-
-        public void shutdown(){
-
-        }
     }
 }

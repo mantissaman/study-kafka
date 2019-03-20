@@ -30,6 +30,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - ./data/kafka1/data:/var/lib/kafka/data
+      - ./src:/apps
     depends_on:
       - zoo1
 
